@@ -1,5 +1,4 @@
 import os
-import logging
 import subprocess
 
 from concurrent.futures import ThreadPoolExecutor
@@ -11,7 +10,6 @@ class Thread_Pool:
         self.STORAGE = "/home/ubuntu/project/storage/"
         self.privado = "privado"
         self.unzip = "unzip"
-        self._log = logging.getLogger("subprocess")
 
     def task(self, user, file):
         try:
@@ -23,15 +21,17 @@ class Thread_Pool:
                 for chunk in file.chunks():
                     destination.write(chunk)
             
-            self._log.info("Subprocess: saved zip file {}").format(raw_file_path)
-
             # unzip the file to user folder
-            rc = subprocess.run([self.unzip, raw_file_path, "-d", user_folder])
-
-            self._log.info("Subprocess: unzip file to {}").format(user_folder)
+            rc = subprocess.run([self.unzip, raw_file_path, "-d", user_folder]).returncode
 
             if rc != 0:
-                raise SubprocessUnzipError(e)
+                raise SubprocessUnzipError("unzip error")
+            
+            # privado scan the file
+            rc = subprocess.run([self.privado, "scan", user_folder + "/" + str(file)[:-4] + "/"]).returncode
+
+            if rc != 0:
+                raise SubprocessUnzipError("privado scan error")
 
         except Exception as e:
             raise SubprocessError(e)
@@ -39,7 +39,6 @@ class Thread_Pool:
 
     def privado_scan(self, user, file):
         self.executor.submit(self.task, user, file)
-        print("submit a subprocess")
 
 
         

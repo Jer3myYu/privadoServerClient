@@ -17,9 +17,9 @@ class Thread_Pool:
             raw_file_path = self.STORAGE + str(file)
             user_folder = self.STORAGE + user
 
-            with open(raw_file_path, "wb+") as destination:
-                for chunk in file.chunks():
-                    destination.write(chunk)
+            # with open(raw_file_path, "wb+") as destination:
+            #     for chunk in file.chunks():
+            #         destination.write(chunk)
             
             # unzip the file to user folder
             rc = subprocess.run([self.unzip, raw_file_path, "-d", user_folder]).returncode

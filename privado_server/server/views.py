@@ -1,4 +1,5 @@
 import os
+import subprocess
 
 from django.http import HttpResponse, JsonResponse, FileResponse
 from django.apps import apps
@@ -17,6 +18,11 @@ def privacy_check(request, user=None):
         with open(raw_file_path, "wb+") as destination:
             for chunk in file.chunks():
                 destination.write(chunk)
+
+        # remove previous privado report
+        file_folder = "/home/ubuntu/project/storage/{}/{}".format(user, str(file)[:-4])
+        if os.path.exists(file_folder):
+            rc = subprocess.run(["rm", "-rf", file_folder]).returncode
 
         _app_config.threads.privado_scan(user, file)
         return HttpResponse("OK")

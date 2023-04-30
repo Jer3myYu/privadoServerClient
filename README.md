@@ -1,29 +1,24 @@
-# privadoServerClient
-# Foobar
+# IntelliPrivado Server
 
-Foobar is a Python library for dealing with word pluralization.
+Django server for Privado Scan.
 
 ## Installation
 
-Use the package manager [pip](https://pip.pypa.io/en/stable/) to install foobar.
+Install [Docker](https://docs.docker.com/desktop/install/ubuntu/).
+
+Install [Privado](https://github.com/Privado-Inc/privado)
+
+Install Django
 
 ```bash
-pip install foobar
+sudo apt install python3-django
 ```
 
 ## Usage
 
-```python
-import foobar
-
-# returns 'words'
-foobar.pluralize('word')
-
-# returns 'geese'
-foobar.pluralize('goose')
-
-# returns 'phenomenon'
-foobar.singularize('phenomena')
+```bash
+# Start the Django Server on port 8000
+python3 manage.py runserver 0.0.0.0:8000
 ```
 
 ## Contributing

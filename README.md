@@ -6,9 +6,9 @@ Django server for Privado Scan.
 
 Install [Docker](https://docs.docker.com/desktop/install/ubuntu/).
 
-Install [Privado](https://github.com/Privado-Inc/privado)
+Install [Privado](https://github.com/Privado-Inc/privado).
 
-Install Django
+Install Django.
 
 ```bash
 sudo apt install python3-django
